@@ -1,25 +1,137 @@
-body {
-    background: #0f172a;
-    color: white;
-    font-family: Arial;
-    padding: 10px;
+body, html {
+    margin: 0;
+    padding: 0;
+    background: #181A20;
+    color: #FFF;
+    font-family: "Roboto", Arial, sans-serif;
+    min-height: 100vh;
 }
-
-button {
-    padding: 10px;
-    margin: 5px;
+#app {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 16px;
 }
-
-.app {
-    padding: 10px;
-    margin: 5px;
+.toolbar {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+.toolbar h1 {
+    margin: 0 0 12px 0;
+    font-size: 2rem;
+    color: #1FD163;
+    font-weight: bold;
+    letter-spacing: 0.05em;
+}
+.actions {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+.actions button {
+    background: #23272F;
+    color: #1FD163;
+    border: none;
+    padding: 8px 18px;
     border-radius: 8px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background 0.2s;
+}
+.actions button:hover {
+    background: #1FD163;
+    color: #23272F;
+}
+.actions #btn_uninstall:disabled {
+    background: #393939;
+    color: #8A8A8A;
+    cursor: default;
+}
+#search {
+    background: #23272F;
+    color: #FFF;
+    border: none;
+    border-radius: 8px;
+    padding: 8px 16px;
+    font-size: 1rem;
+    outline: none;
+    width: 150px;
+}
+#status {
+    margin: 16px 0 8px 0;
+    color: #FFF;
+    min-height: 1.2em;
+}
+.loading {
+    text-align: center;
+    margin: 24px 0;
+    font-size: 1.2em;
 }
 
-.system {
-    background: #7f1d1d; /* merah */
+#list {
+    margin-top: 12px;
 }
 
-.user {
-    background: #14532d; /* hijau */
+.app-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #23272F;
+    margin-bottom: 10px;
+    border-radius: 12px;
+    box-shadow: 0 2px 10px #00000030;
+    padding: 12px 20px;
+    transition: background 0.2s;
+}
+.app-card.system {
+    background: #FF2D2D;
+    color: #FFF;
+}
+.app-card.user {
+    background: #1FD163;
+    color: #23272F;
+}
+.app-name {
+    font-size: 1.03rem;
+    font-weight: 600;
+    flex: 1;
+}
+.app-package {
+    font-size: 0.90rem;
+    opacity: 0.74;
+    flex: 1.5;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.checkbox-wrap {
+    flex-shrink: 0;
+    margin-left: 16px;
+}
+input[type=checkbox] {
+    width: 24px;
+    height: 24px;
+    accent-color: #1FD163;
+}
+::-webkit-scrollbar-thumb {
+    background: #393939;
+    border-radius: 10px;
+}
+::-webkit-scrollbar {
+    width: 7px;
+    background: #23272F;
+}
+@media (max-width: 650px) {
+    #app {
+        padding: 6px;
+    }
+    .app-card {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 12px 10px;
+        gap: 3px;
+    }
+    .app-name, .app-package {
+        font-size: 0.97rem;
+    }
 }
