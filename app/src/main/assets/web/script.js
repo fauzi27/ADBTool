@@ -1,20 +1,39 @@
-function test() {
-    Android.showToast("Hello dari WebView 🔥");
-}
+let selected = new Set();
 
 function loadApps() {
     let apps = JSON.parse(Android.getApps());
-    let list = document.getElementById("list");
-    list.innerHTML = "";
+    let container = document.getElementById("appList");
+    container.innerHTML = "";
 
     apps.forEach(app => {
-        let li = document.createElement("li");
-        li.innerText = app;
+        let div = document.createElement("div");
+        div.className = "app " + (app.system ? "system" : "user");
 
-        li.onclick = () => {
-            Android.uninstall(app);
+        let checkbox = document.createElement("input");
+        checkbox.type = "checkbox";
+
+        checkbox.onchange = () => {
+            if (checkbox.checked) selected.add(app.package);
+            else selected.delete(app.package);
         };
 
-        list.appendChild(li);
+        let label = document.createElement("span");
+        label.innerText = app.name + " (" + app.package + ")";
+
+        div.appendChild(checkbox);
+        div.appendChild(label);
+        container.appendChild(div);
     });
+}
+
+function uninstallSelected() {
+    let status = document.getElementById("status");
+    status.innerText = "Processing...";
+
+    selected.forEach(pkg => {
+        let result = Android.uninstall(pkg);
+        console.log(pkg, result);
+    });
+
+    status.innerText = "Done";
 }
