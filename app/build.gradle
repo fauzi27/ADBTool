@@ -20,8 +20,9 @@ android {
             minifyEnabled false
         }
     }
-}
-compileOptions {
+
+    // 🔥 FIX UTAMA (HARUS DI DALAM android {})
+    compileOptions {
         sourceCompatibility JavaVersion.VERSION_17
         targetCompatibility JavaVersion.VERSION_17
     }
@@ -29,7 +30,12 @@ compileOptions {
     kotlinOptions {
         jvmTarget = "17"
     }
+}
 
 dependencies {
     implementation 'androidx.appcompat:appcompat:1.6.1'
+
+    // Shizuku (kalau sudah ditambahkan)
+    implementation "dev.rikka.shizuku:api:13.1.5"
+    implementation "dev.rikka.shizuku:provider:13.1.5"
 }
