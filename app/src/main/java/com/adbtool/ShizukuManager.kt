@@ -12,23 +12,25 @@ object ShizukuManager {
         return Shizuku.pingBinder() &&
                Shizuku.checkSelfPermission() == android.content.pm.PackageManager.PERMISSION_GRANTED
     }
+fun uninstall(context: Context, pkg: String) {
+    if (!isReady()) {
+        Toast.makeText(context, "Shizuku belum aktif", Toast.LENGTH_SHORT).show()
+        return
+    }
 
-    fun uninstall(context: Context, pkg: String) {
-        if (!isReady()) {
-            Toast.makeText(context, "Shizuku belum siap", Toast.LENGTH_SHORT).show()
-            return
-        }
+    try {
+        val process = Shizuku.newProcess(
+            arrayOf("sh", "-c", "pm uninstall --user 0 $pkg"),
+            null,
+            null
+        )
 
-        try {
-            val process = Runtime.getRuntime().exec(arrayOf("sh", "-c", "pm uninstall --user 0 $pkg"))
+        val reader = BufferedReader(InputStreamReader(process.inputStream))
+        val result = reader.readText()
 
-            val reader = BufferedReader(InputStreamReader(process.inputStream))
-            val result = reader.readText()
+        Toast.makeText(context, result, Toast.LENGTH_LONG).show()
 
-            Toast.makeText(context, result, Toast.LENGTH_LONG).show()
-
-        } catch (e: Exception) {
-            Toast.makeText(context, "Error: ${e.message}", Toast.LENGTH_LONG).show()
-        }
+    } catch (e: Exception) {
+        Toast.makeText(context, "Error: ${e.message}", Toast.LENGTH_LONG).show()
     }
 }
