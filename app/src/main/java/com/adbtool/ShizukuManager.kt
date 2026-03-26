@@ -1,6 +1,7 @@
 package com.adbtool
 
 import android.content.Context
+import android.content.pm.PackageManager
 import android.widget.Toast
 import rikka.shizuku.Shizuku
 import java.io.BufferedReader
@@ -10,27 +11,24 @@ object ShizukuManager {
 
     fun isReady(): Boolean {
         return Shizuku.pingBinder() &&
-               Shizuku.checkSelfPermission() == android.content.pm.PackageManager.PERMISSION_GRANTED
-    }
-fun uninstall(context: Context, pkg: String) {
-    if (!isReady()) {
-        Toast.makeText(context, "Shizuku belum aktif", Toast.LENGTH_SHORT).show()
-        return
+                Shizuku.checkSelfPermission() == PackageManager.PERMISSION_GRANTED
     }
 
-    try {
-        val process = Shizuku.newProcess(
-            arrayOf("sh", "-c", "pm uninstall --user 0 $pkg"),
-            null,
-            null
-        )
+    fun uninstall(context: Context, pkg: String): String {
+        if (!isReady()) return "Shizuku belum aktif"
 
-        val reader = BufferedReader(InputStreamReader(process.inputStream))
-        val result = reader.readText()
+        return try {
+            val process = Shizuku.newProcess(
+                arrayOf("sh", "-c", "pm uninstall --user 0 $pkg"),
+                null,
+                null
+            )
 
-        Toast.makeText(context, result, Toast.LENGTH_LONG).show()
+            val result = BufferedReader(InputStreamReader(process.inputStream)).readText()
+            result.ifEmpty { "Success" }
 
-    } catch (e: Exception) {
-        Toast.makeText(context, "Error: ${e.message}", Toast.LENGTH_LONG).show()
+        } catch (e: Exception) {
+            "Error: ${e.message}"
+        }
     }
 }
