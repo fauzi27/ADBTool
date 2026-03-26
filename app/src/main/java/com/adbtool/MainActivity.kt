@@ -20,10 +20,8 @@ class MainActivity : AppCompatActivity() {
         webView.settings.javaScriptEnabled = true
         webView.webViewClient = WebViewClient()
 
-        // Bridge ke JS
         webView.addJavascriptInterface(WebAppInterface(this), "Android")
 
-        // Load file lokal
         webView.loadUrl("file:///android_asset/web/index.html")
     }
 }
