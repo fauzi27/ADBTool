@@ -10,9 +10,16 @@ button {
     margin: 5px;
 }
 
-li {
-    margin: 5px;
+.app {
     padding: 10px;
-    background: #1e293b;
-    border-radius: 5px;
+    margin: 5px;
+    border-radius: 8px;
+}
+
+.system {
+    background: #7f1d1d; /* merah */
+}
+
+.user {
+    background: #14532d; /* hijau */
 }
