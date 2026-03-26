@@ -1,21 +1,26 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>ADB Tool</title>
-    <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8"/>
+    <title>ADB Tool - App Uninstaller</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link href="style.css" rel="stylesheet">
 </head>
 <body>
-
-<h2>ADB Tool</h2>
-
-<button onclick="loadApps()">Load Apps</button>
-<button onclick="uninstallSelected()">Uninstall Selected</button>
-
-<div id="status"></div>
-
-<div id="appList"></div>
-
+<div id="app">
+    <div class="toolbar">
+        <h1>ADB Tool</h1>
+        <div class="actions">
+            <button id="btn_shizuku">Check Shizuku</button>
+            <button id="btn_load">Load Apps</button>
+            <input type="text" id="search" placeholder="Search app..." autocomplete="off"/>
+            <button id="btn_uninstall" disabled>Uninstall Selected</button>
+        </div>
+    </div>
+    <div id="status"></div>
+    <div id="loading" class="loading" style="display:none;">Loading...</div>
+    <div id="list"></div>
+</div>
 <script src="script.js"></script>
-
 </body>
 </html>
